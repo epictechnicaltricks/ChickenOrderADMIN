@@ -317,6 +317,8 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
         update_status_api.startRequestNetwork(RequestNetworkController.GET,
                 "https://cityneedzapi.000webhostapp.com/chicken-api/updateStatus.php?user_id="+_user_id+"&value="+_value,
                 "no tag", _update_status_api_listener);
+
+        //THIS IS DEMO UPDATE
     }
 
 
