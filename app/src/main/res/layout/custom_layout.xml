@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="9dp"
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#F6EFEF"
+            android:padding="12sp">
+
+            <TextView
+                android:id="@+id/order_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#ORD32121"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="#F44336"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="38sp"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Date : 12-05-2023, 12:15AM"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+
+            <TextView
+                android:id="@+id/order_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Date : 12-05-2023, 12:15AM"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
+
+            <TextView
+
+                android:layout_marginTop="10dp"
+                android:id="@+id/name_qty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chicken : 203Kg"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Amount: ₹121"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"/>
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:gravity="end"
+                android:layout_marginEnd="22dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_marginEnd="20dp"
+                    android:padding="8dp"
+                    android:background="#673AB7"
+                    android:id="@+id/ready"
+                    android:text="Ready"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:layout_marginEnd="20dp"
+                    android:padding="8dp"
+                    android:background="#2196F3"
+                    android:id="@+id/delivered"
+                    android:text="Update to Delivered"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </TextView>
+
+                <TextView
+                    android:padding="8dp"
+                    android:background="#F44336"
+                    android:id="@+id/info"
+                    android:text="DETAILS"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </TextView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Type - Home"
+                android:background="#E49622"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+
+                android:gravity="center"
+                android:padding="8dp"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
