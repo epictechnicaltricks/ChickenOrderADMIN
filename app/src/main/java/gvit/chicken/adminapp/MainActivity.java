@@ -319,6 +319,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 "no tag", _update_status_api_listener);
 
         //THIS IS DEMO UPDATE
+        //
     }
 
 
