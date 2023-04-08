@@ -314,7 +314,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
     public void showDatePicker(DatePickerDialog.OnDateSetListener listener) {
 
         /*Calendar c = Calendar.getInstance();
-        c.set(nowyear-21, nowmonth,nowday);*/
+        c.set(nowyear-21, nowmonth,nowday); */
 
 
 
