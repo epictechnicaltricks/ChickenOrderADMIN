@@ -16,36 +16,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <TextView
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:textColor="#fff"
                 android:background="#000"
                 android:id="@+id/date_calender"
                 android:textStyle="bold"
-                android:text="SELECT BY DATE"
+                android:text="SELECT DATE"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             </TextView>
-            <TextView
-                android:visibility="visible"
-                android:layout_weight="1"
-                android:padding="8dp"
-                android:textColor="#FFEB3B"
-                android:background="#000"
-                android:id="@+id/refresh"
-                android:gravity="end"
-                android:paddingEnd="20dp"
-                android:textStyle="bold"
-                android:text="Refresh"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </TextView>
+                <TextView
+                    android:layout_marginEnd="2dp"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:textColor="#FFEB3B"
+                    android:background="#000"
+                    android:id="@+id/filter_user_date"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
+                    android:textStyle="bold"
+                    android:text="FILTER BY USER DATE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+                <TextView
+                    android:visibility="visible"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:textColor="#FFEB3B"
+                    android:background="#000"
+                    android:id="@+id/filter_order_date"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:text="FILTER BY ORDER DATE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+            </LinearLayout>
+
+
+
         </LinearLayout>
+
+
 
         <HorizontalScrollView
             android:background="#F4F4F4"
@@ -93,7 +126,7 @@ android:gravity="center_vertical|center_horizontal"
                    />
 
                 <TextView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:background="#000"
                     android:id="@+id/filter"
                     android:padding="8dp"
@@ -101,7 +134,7 @@ android:gravity="center_vertical|center_horizontal"
                     android:gravity="end"
 
                     android:textStyle="bold"
-                    android:text="Filter"
+                    android:text="Settings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

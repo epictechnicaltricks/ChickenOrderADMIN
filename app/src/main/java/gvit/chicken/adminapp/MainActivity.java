@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private RequestNetwork get_orders;
     private RequestNetwork.RequestListener _get_orders_api_listener;
 
+    private RequestNetwork filter_date_api;
+
 
     private RequestNetwork update_status_api;
     private RequestNetwork.RequestListener _update_status_api_listener;
 
     private  ArrayList<HashMap<String, Object>> listmap2 = new ArrayList<>();
-    TextView date_calender, refresh, filter;
+    TextView date_calender,  filter, filter_user_date, filter_order_date;
     String date_selected="", order_status="process", order_type="HOME";
 
     String[] order_status_spinner_data = {"PROCESS", "READY", "DELIVERED"};
@@ -52,14 +54,51 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner order_type_spinner, order_status_spinner;
     int y=0;
-SwipeRefreshLayout sw;
+     SwipeRefreshLayout sw;
+
+
+      int  page=1, per_page=10;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         date_calender = findViewById(R.id.date_calender);
-        refresh = findViewById(R.id.refresh);
+       filter_order_date = findViewById(R.id.filter_order_date);
+       filter_user_date = findViewById(R.id.filter_user_date);
+
+
+       filter_user_date.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(!date_selected.equals(""))
+               {
+                   filter_by_date("user_date",date_selected,page,per_page);
+               } else {
+
+                   Toast.makeText(MainActivity.this, "Please select date.", Toast.LENGTH_SHORT).show();
+               }
+
+
+           }
+       });
+
+       filter_order_date.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(!date_selected.equals(""))
+               {
+               filter_by_date("order_date",date_selected,page,per_page);
+               } else {
+
+                   Toast.makeText(MainActivity.this, "Please select date.", Toast.LENGTH_SHORT).show();
+               }
+
+           }
+       });
+
         filter = findViewById(R.id.filter);
 
         order_status_spinner = findViewById(R.id.spinner_order_status);
@@ -136,7 +175,7 @@ SwipeRefreshLayout sw;
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                get_all_order_request(order_status,order_type,date_selected);
+                startActivity(new Intent(getApplicationContext(), Settings.class));
             }
         });
 
@@ -149,19 +188,13 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
     }
 });
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sw.setRefreshing(true);
-                get_all_order_request(order_status,order_type,date_selected);
-            }
-        });
+
 
         date_calender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
              _DateDialog(date_calender);
-                get_all_order_request(order_status,order_type,date_selected);
+
             }
         });
 
@@ -207,6 +240,8 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             }
         };
 
+
+        filter_date_api = new RequestNetwork(this);
 
         update_status_api = new RequestNetwork(this);
         _update_status_api_listener = new RequestNetwork.RequestListener() {
@@ -269,6 +304,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             _textview.setText(final_date);
             date_selected = final_date;
+            Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
 
             // sd = day;
         };
@@ -310,6 +346,63 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                         "&date="+_date,
                 "no tag", _get_orders_api_listener);
     }
+
+    private void filter_by_date(String _filter_type, String _date, int _page, int _per_page) {
+        Toast.makeText(this, "Filtering..", Toast.LENGTH_SHORT).show();
+        sw.setRefreshing(true);
+        filter_date_api.startRequestNetwork(RequestNetworkController.GET,
+                "https://cityneedzapi.000webhostapp.com/chicken-api/Datefilter.php?" +
+                        "filter_type=" +  _filter_type.trim()+
+                        "&date="  +  _date.trim() +
+                        "&page="+ _page +
+                        "&per_page="+_per_page,
+                "no tag", _get_orders_api_listener);
+    }
+
+
+/*
+    protected function date_filter_fun($filter_type, $date, $page, $per_page){
+
+        try {
+
+
+	*/
+/*	$page_no = 1;
+
+    $total_records_per_page = 10;
+    $offset = ($page_no-1) * $total_records_per_page;
+	$previous_page = $page_no - 1;
+	$next_page = $page_no + 1;
+
+	https://myapi.com/data?page=2&per_page=10
+
+	*//*
+
+
+            // Set default values for pagination parameters
+            $page = isset($page) ? $page : 1;
+            $perPage = isset($per_page) ? $per_page : 10;
+
+// Calculate the offset
+            $offset = ($page - 1) * $perPage;
+
+            switch ($filter_type) {
+                case "user_date":
+
+                    $fetch_result = "SELECT * FROM `cnz_bookservice` WHERE `booked_user_date` = '$date' ORDER BY bookservice_date DESC LIMIT $per_page OFFSET $offset";
+
+                    break;
+                case "order_date":
+                    $fetch_result = "SELECT * FROM `cnz_bookservice` WHERE `bookservice_date` = '$date' ORDER BY bookservice_date DESC LIMIT $per_page OFFSET $offset";
+
+                    break;
+
+                default:
+                    echo "Please select order type..";
+            }
+?>
+*/
+
 
     private void update_status_request(String _user_id, String _value) {
 
