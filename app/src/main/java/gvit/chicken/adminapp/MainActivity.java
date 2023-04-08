@@ -327,7 +327,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
         datePickerDialog.setOnDateSetListener(listener);
         datePickerDialog.show();
 
-       /* DatePickerDialog datePicker = new DatePickerDialog(context);
+       /*   DatePickerDialog datePicker = new DatePickerDialog(context);
         // datePicker.getWindow().setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(0));
         datePicker.setOnDateSetListener(listener);
         datePicker.show();*/
