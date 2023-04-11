@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(y>=1) {
                     get_all_order_request(order_status,order_type,date_selected);
-                    Toast.makeText(MainActivity.this, order_type, Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(MainActivity.this, order_type, Toast.LENGTH_SHORT).show();
                 }
                 y++;
 
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 order_status = order_status_spinner_data[i];
-                Toast.makeText(MainActivity.this, order_status, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(MainActivity.this, order_status, Toast.LENGTH_SHORT).show();
 
                 get_all_order_request(order_status,order_type,date_selected);
 
@@ -236,6 +236,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             @Override
             public void onErrorResponse(String tag, String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                 sw.setRefreshing(false);
             }
         };
@@ -304,7 +305,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
             _textview.setText(final_date);
             date_selected = final_date;
-            Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
 
             // sd = day;
         };
@@ -337,7 +338,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 
 
     private void get_all_order_request(String _order_status, String _order_type, String _date) {
-        Toast.makeText(this, "Loading..", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Loading..", Toast.LENGTH_SHORT).show();
         sw.setRefreshing(true);
         get_orders.startRequestNetwork(RequestNetworkController.GET,
                 "https://cityneedzapi.000webhostapp.com/chicken-api/getAllBooking_of_all_user.php?" +
@@ -348,7 +349,7 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
     }
 
     private void filter_by_date(String _filter_type, String _date, int _page, int _per_page) {
-        Toast.makeText(this, "Filtering..", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Filtering..", Toast.LENGTH_SHORT).show();
         sw.setRefreshing(true);
         filter_date_api.startRequestNetwork(RequestNetworkController.GET,
                 "https://cityneedzapi.000webhostapp.com/chicken-api/Datefilter.php?" +
@@ -469,7 +470,7 @@ if(Objects.requireNonNull(listmap2.get(_position).get("bookservice_order_type"))
                 if(Objects.requireNonNull(listmap2.get(_position).get("bookservice_order_type")).toString().equals("HOME")) {
                     info.setVisibility(View.VISIBLE);
                 } else {
-                    info.setVisibility(View.GONE);
+                    info.setVisibility(View.VISIBLE);
                 }
 
                 if(Objects.requireNonNull(listmap2.get(_position).get("book_status")).toString().equals("process")) {

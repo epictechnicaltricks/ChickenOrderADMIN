@@ -13,6 +13,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
       <TextView
+          android:onClick="open_add_update"
           android:text="ADD + UPDATE ITEM"
           android:background="#000"
           android:textSize="15sp"
