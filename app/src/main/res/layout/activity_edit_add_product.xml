@@ -26,7 +26,7 @@ android:layout_margin="5dp"
         <EditText
             android:maxLines="3"
             android:layout_margin="5dp"
-            android:textSize="19sp"
+
             android:id="@+id/name"
             android:textSize="19sp"
             android:textColorHint="#bdbdbd"
@@ -39,9 +39,11 @@ android:layout_margin="5dp"
 
 
         <TextView
+
+            android:foreground="@drawable/strike"
             android:layout_margin="5dp"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="#817C7C"
             android:textSize="19sp"
             android:text="Enter Price (per Kg)"
             android:layout_width="match_parent"
@@ -51,7 +53,7 @@ android:layout_margin="5dp"
             android:layout_margin="5dp"
             android:textSize="19sp"
             android:id="@+id/price"
-            android:textSize="19sp"
+
             android:digits="0123456789"
             android:inputType="numberSigned"
             android:textColorHint="#bdbdbd"
@@ -73,7 +75,7 @@ android:layout_margin="5dp"
             android:textSize="19sp"
             android:id="@+id/desc"
             android:maxLines="5"
-            android:textSize="19sp"
+
             android:textColorHint="#bdbdbd"
             android:hint="Description e.g. Chicken boneless"
             android:layout_width="match_parent"
@@ -86,13 +88,13 @@ android:layout_margin="5dp"
 
         <Button
 
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:id="@+id/add"
             android:text="ADD ITEM"
             android:padding="8dp"
             android:textSize="19sp"
             android:textColor="#fff"
-            android:background="#009649"
+            android:backgroundTint="#009649"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -100,17 +102,31 @@ android:layout_margin="5dp"
 
 
         <Button
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:id="@+id/update"
             android:text="UPDATE ITEM"
             android:padding="8dp"
             android:textSize="19sp"
             android:textColor="#fff"
-            android:background="#FF5722"
+            android:backgroundTint="#FF5722"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
         </Button>
+
+        <Button
+
+            android:id="@+id/close"
+            android:text="CLOSE, GO BACK"
+            android:padding="8dp"
+            android:textSize="19sp"
+            android:textColor="#fff"
+            android:backgroundTint="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+
 
     </LinearLayout>
 

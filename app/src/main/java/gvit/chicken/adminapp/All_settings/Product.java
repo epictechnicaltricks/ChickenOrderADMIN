@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.security.cert.Extension;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -46,6 +48,9 @@ public class Product extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+
+        recyclerview1 = findViewById(R.id.recyclerview1);
+
         get_all_products_api = new RequestNetwork(this);
         _get_all_products_api_listener = new RequestNetwork.RequestListener() {
             @Override
@@ -54,14 +59,15 @@ public class Product extends AppCompatActivity {
 
                     if (response.contains("200")) {
                         HashMap<String, Objects> map;
-                        map = new Gson().fromJson(response, new TypeToken<HashMap<String, Object>>() {
-                        }.getType());
-                        String values = (new Gson()).toJson(map.get("user"), new TypeToken<ArrayList<HashMap<String, Object>>>() {
-                        }.getType());
-                        product_map = new Gson().fromJson(values, new TypeToken<ArrayList<HashMap<String, Object>>>() {
-                        }.getType());
+                        map = new Gson().fromJson(response, new TypeToken<HashMap<String, Object>>() {}.getType());
+                        String values = (new Gson()).toJson(map.get("user"), new TypeToken<ArrayList<HashMap<String, Object>>>() {}.getType());
+                        product_map = new Gson().fromJson(values, new TypeToken<ArrayList<HashMap<String, Object>>>() {}.getType());
 
-                        // Collections.reverse(listmap2);
+
+                        Collections.reverse(product_map);
+                        recyclerview1.setAdapter(new Recyclerview1Adapter(product_map));
+                        recyclerview1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        recyclerview1.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
 
                     } else {
@@ -70,12 +76,10 @@ public class Product extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "No data found", Toast.LENGTH_LONG).show();
                     }
 
-                    recyclerview1.setAdapter(new Recyclerview1Adapter(product_map));
-                    recyclerview1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                    recyclerview1.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
                 } catch (Exception e) {
 
+                    Log.d("api_error", e.toString());
                     Toast.makeText(getApplicationContext(), "Error on API", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -108,7 +112,7 @@ public class Product extends AppCompatActivity {
             public void onErrorResponse(String tag, String message) {
 
             }
-        }
+        };
 
 
     }
@@ -122,17 +126,28 @@ public class Product extends AppCompatActivity {
 
     
     private void get_all_products_request() {
-        Toast.makeText(this, "LOADING ALL PRODUCTS", Toast.LENGTH_LONG).show();
-        get_all_products.startRequestNetwork(RequestNetworkController.GET,
+       // Toast.makeText(this, "LOADING ALL PRODUCTS", Toast.LENGTH_LONG).show();
+        get_all_products_api.startRequestNetwork(RequestNetworkController.GET,
                 "https://cityneedzapi.000webhostapp.com/chicken-api/product_show.php",
                 "no tag", _get_all_products_api_listener);
     }
 
-    private void delete_product_request() {
+    private void delete_product_request(String _product_id) {
 
-        get_all_products.startRequestNetwork(RequestNetworkController.GET,
-                "https://cityneedzapi.000webhostapp.com/chicken-api/product_show.php",
-                "no tag", _get_all_products_api_listener);
+       Toast.makeText(this, "Deleting..", Toast.LENGTH_SHORT).show();
+        delete_products_api.startRequestNetwork(RequestNetworkController.GET,
+                "https://cityneedzapi.000webhostapp.com/chicken-api/DeleteProduct.php?product_id="+_product_id,
+                "no tag", _delete_api_listener);
+    }
+
+
+
+
+    public void add_product(View view)
+    {
+        Intent i = new Intent();
+        i.setClass(getApplicationContext(), EditAddProduct.class);
+        startActivity(i);
     }
 
 
@@ -158,27 +173,25 @@ public class Product extends AppCompatActivity {
 
 
 
-
             final TextView name = _view.findViewById(R.id.name);
             final TextView date = _view.findViewById(R.id.date);
             final TextView desc = _view.findViewById(R.id.desc);
-            final TextView price = _view.findViewById(R.id.price);
+            final TextView price = _view.findViewById(R.id.amount);
 
             final TextView edit = _view.findViewById(R.id.edit);
             final TextView delete = _view.findViewById(R.id.delete);
 
-            String product_id;
+
 
 
 
 
             try{
 
-                name.setText(Objects.requireNonNull(product_map.get(_position).get("product_name")).toString());
-                date.setText("DATE: "+Objects.requireNonNull(product_map.get(_position).get("product_date")));
+                name.setText(Objects.requireNonNull(product_map.get(_position).get("product_name")).toString().toUpperCase());
+                date.setText("UPDATED DATE: "+Objects.requireNonNull(product_map.get(_position).get("product_date")));
                 desc.setText("Description: "+ Objects.requireNonNull(product_map.get(_position).get("product_desc")));
                 price.setText("Price: ₹"+ Objects.requireNonNull(product_map.get(_position).get("product_price")));
-                product_id = Objects.requireNonNull(product_map.get(_position).get("product_id"))+"";
 
                 edit.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -189,6 +202,7 @@ public class Product extends AppCompatActivity {
                         i.putExtra("name",Objects.requireNonNull(product_map.get(_position).get("product_name")).toString());
                         i.putExtra("desc",Objects.requireNonNull(product_map.get(_position).get("product_desc")).toString());
                         i.putExtra("price",Objects.requireNonNull(product_map.get(_position).get("product_price")).toString());
+                        i.putExtra("id",Objects.requireNonNull(product_map.get(_position).get("product_id")).toString());
                         startActivity(i);
                     }
                 });
@@ -196,7 +210,7 @@ public class Product extends AppCompatActivity {
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        delete_product_request(Objects.requireNonNull(product_map.get(_position).get("product_id")).toString());
                     }
                 });
 
@@ -204,6 +218,8 @@ public class Product extends AppCompatActivity {
             {
                 //showMessage("887 line "+e.toString());
             }
+
+
 
 
 
@@ -224,14 +240,11 @@ public class Product extends AppCompatActivity {
 
 
 
-    public void add_product(View view)
-    {
-        Intent i = new Intent();
-        i.setClass(getApplicationContext(), EditAddProduct.class);
-        startActivity(i);
-    }
 
 
 
+/*
+
+ */
 
 }

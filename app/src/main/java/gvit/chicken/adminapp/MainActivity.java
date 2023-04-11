@@ -438,8 +438,6 @@ sw.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             View _view = _holder.itemView;
 
 
-
-
             final TextView order_type = _view.findViewById(R.id.order_type);
             final TextView order_no = _view.findViewById(R.id.order_no);
             final TextView customer_date_selected = _view.findViewById(R.id.date);
