@@ -203,6 +203,7 @@ public class Product extends AppCompatActivity {
                         i.putExtra("desc",Objects.requireNonNull(product_map.get(_position).get("product_desc")).toString());
                         i.putExtra("price",Objects.requireNonNull(product_map.get(_position).get("product_price")).toString());
                         i.putExtra("id",Objects.requireNonNull(product_map.get(_position).get("product_id")).toString());
+
                         startActivity(i);
                     }
                 });
